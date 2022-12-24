@@ -1,0 +1,1 @@
+# Copyright to Narademy.com
