@@ -6,19 +6,18 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('auth_model');
-		if(!$this->auth_model->current_user()){
-			redirect('auth/login');
+		$data['current_user'] = $this->auth_model->current_user();
+		if($data['current_user']->role !== '1104'){
+			redirect('home');
 		}
 	}
 	public function index()
 	{
 		$this->load->model('course_model');
 		$this->load->model('feedback_model');
-		$this->load->model('blog_model');
 		$data = [
             "current_user" => $this->auth_model->current_user(),
 			"course_count" => $this->course_model->count(),
-			"blog_count" => $this->blog_model->count(),
 			"feedback_count" => $this->feedback_model->count()
 		];
 

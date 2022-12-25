@@ -7,8 +7,10 @@ class Users extends CI_Controller
 		parent::__construct();
 		$this->load->model('auth_model');
 		$this->load->model('user_model');
-		if(!$this->auth_model->current_user()){
-			redirect('auth/login');
+		$this->load->model('auth_model');
+		$data['current_user'] = $this->auth_model->current_user();
+		if($data['current_user']->role !== '1104'){
+			redirect('home');
 		}
 	}
 

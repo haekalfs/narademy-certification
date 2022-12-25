@@ -89,14 +89,14 @@
                       <div class="form-group">
                           <label class="control-label col-xs-3" >Name</label>
                           <div class="col-xs-8">
-                              <input name="name" class="form-control" type="text" placeholder="Name..." required>
+                              <input name="name" class="form-control" type="text" placeholder="Name..." value="<?php echo $this->session->userdata('Nama'); ?>" required>
                           </div>
                       </div>
   
                       <div class="form-group">
                           <label class="control-label col-xs-3" >Email</label>
                           <div class="col-xs-8">
-                              <input name="email" class="form-control" type="text" placeholder="Email..." required>
+                              <input name="email" class="form-control" type="text" placeholder="Email..." value="<?php echo $current_user->email ?>" required>
                           </div>
                       </div>
   

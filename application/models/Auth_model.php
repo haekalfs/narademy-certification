@@ -21,6 +21,19 @@ class Auth_model extends CI_Model
 		];
 	}
 
+	function register($name,$username,$email,$password)
+	{
+		$data_user = array(
+			'id'=>'NULL',
+			'name'=>$name,
+			'username'=>$username,
+			'email'=>$email,
+			'role'=>'2907',
+			'password'=>password_hash($password,PASSWORD_DEFAULT)
+		);
+		return $this->db->insert($this->_table,$data_user);
+	}
+
 	public function login($username, $password)
 	{
 		$where = "email='$username' OR username = '$username' AND role = '1104'";
@@ -47,7 +60,7 @@ class Auth_model extends CI_Model
 		$this->session->set_userdata('access','1');
 		$this->_update_last_login($user->id);
 
-		return $this->session->has_userdata(self::SESSION_KEY,'access','Nama');
+		return $this->session->has_userdata(self::SESSION_KEY);
 	}
 
 	public function login_user($username, $password)
@@ -56,6 +69,8 @@ class Auth_model extends CI_Model
 		$this->db->where($where);
 		$query = $this->db->get($this->_table);
 		$user = $query->row();
+
+		$dataSession = $query->row_array();
 
 		// cek apakah user sudah terdaftar?
 		if (!$user) {
@@ -68,11 +83,12 @@ class Auth_model extends CI_Model
 		}
 
 		//bikin session
+		$this->session->set_userdata('Nama' , $dataSession['name']);
 		$this->session->set_userdata([self::SESSION_KEY => $user->id]);
 		$this->session->set_userdata('access','2');
 		$this->_update_last_login($user->id);
 
-		return $this->session->has_userdata(self::SESSION_KEY,'access');
+		return $this->session->has_userdata(self::SESSION_KEY);
 	}
 
 
@@ -92,6 +108,7 @@ class Auth_model extends CI_Model
 		$this->session->unset_userdata(self::SESSION_KEY);
 		$this->session->unset_userdata('access');
 		$this->session->unset_userdata('courses');
+		$this->session->unset_userdata('Nama');
 		return !$this->session->has_userdata(self::SESSION_KEY);
 	}
 

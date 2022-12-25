@@ -6,46 +6,41 @@ class Home extends CI_Controller
     {
         parent::__construct();
         $this->load->model('feedback_model');
-        $this->load->model('blog_model');
+        $this->load->model('course_model');
+        $this->load->model('auth_model');
+		if(!$this->auth_model->current_user()){
+			redirect('auth/login');
+		}
     }
+    
     public function index()
     {
-        $this->load->library('pagination');
+      $this->load->library('pagination');
+    
+      $config['base_url'] = site_url('/course');
+      $config['page_query_string'] = TRUE;
+      $config['total_rows'] = $this->course_model->get_published_count();
+      $config['per_page'] = 9;
+    
+      $config['full_tag_open'] = '<div class="pagination justify-content-center">';
+      $config['full_tag_close'] = '</div>';
   
-        $config['base_url'] = site_url('home');
-        $config['page_query_string'] = TRUE;
-        $config['total_rows'] = $this->blog_model->get_published_count();
-        $config['per_page'] = 3;
+      $this->pagination->initialize($config);
+      $limit = $config['per_page'];
+      $offset = html_escape($this->input->get('per_page'));
     
-        $config['full_tag_open'] = '<div class="pagination">';
-        $config['full_tag_close'] = '</div>';
-
-        $this->pagination->initialize($config);
-        $limit = $config['per_page'];
-        $offset = html_escape($this->input->get('per_page'));
-    
-        $data['blogs'] = $this->blog_model->get_published($limit, $offset);
-        $data['meta'] = [
-            'title' => 'Narademy',
-        ];
-        if(count($data['blogs']) > 0){
+      $data['current_user'] = $this->auth_model->current_user();
+      $data['courses'] = $this->course_model->get_published($limit, $offset);
+      $data['floc'] = [
+        'title' => "Browse All Courses",
+      ];
+      if(count($data['courses']) > 0){
             $this->load->view('home', $data);
         } else {
         ///
         }
     }
 
-    public function about()
-    {
-        $data['meta'] = [
-			'title' => 'About Narademy',
-		];
-        $data['floc'] = [
-			'title' => 'About Us',
-		];
-        $this->load->view('about', $data);
-    }
-    
     public function contact()
     {
     $data['meta'] = [
@@ -81,5 +76,27 @@ class Home extends CI_Controller
       ];
     $this->load->view('contact', $data);
     }
+
+  public function show($slug = null)
+  {
+    // jika gak ada slug di URL tampilkan 404
+    if (!$slug) {
+      show_404();
+    }
+
+    // ambil artikel dengan slug yang diberikan
+    $data['course'] = $this->course_model->find_by_slug($slug);
+
+    // jika artikel tidak ditemuakn di database tampilkan 404
+    if (!$data['course']) {
+      show_404();
+    }
+
+    // tampilkan artikel
+    $data['floc'] = [
+      'title' => "Courses / $slug",
+    ];
+    $this->load->view('courses/show_courses.php', $data);
+  }
 
 }
