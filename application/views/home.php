@@ -74,17 +74,27 @@
 		  <?php endforeach ?>
 		</div>
   </div>
+
   <!-- modal -->
-<div class="modal" id="restrictModal">
-   <div class="modal-dialog ">
+<div class="modal fade" id="restrictModal">
+   <div class="modal-dialog modal-dialog-centered">
        <div class="modal-content">
            <div class="modal-header">
-              <h4 class="modal-title">An Error Occured</h4>
+              <h4 class="modal-title">Access Denied!</h4>
            </div>
           <div class="modal-body">
-        <p>You need to become a member.</p>
+        <p>
+          <p>You need to become a member. </p>
+          <p>Sign in or Create an account to access this course and Claim your certificate now.</p>
+          <p>Sincerely,
+            <p><br>
+              <b>Nara<a style="color: blue;">demy</a>.com</b>
+            </p>
+          </p>
+        </p>
           </div>
            <div class="modal-footer">
+              <a href="<?= site_url('auth/login') ?>" class="btn btn-primary" type="button">Sign in</a>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
        </div>

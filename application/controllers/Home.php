@@ -8,9 +8,6 @@ class Home extends CI_Controller
         $this->load->model('feedback_model');
         $this->load->model('course_model');
         $this->load->model('auth_model');
-		if(!$this->auth_model->current_user()){
-			redirect('auth/login');
-		}
     }
     
     public function index()

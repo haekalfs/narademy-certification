@@ -12,6 +12,7 @@
             <ul>
               <li><a href="<?= site_url('admin') ?>">Go To Admin Page</a></li>
               <li><a href="<?= site_url('admin/setting') ?>">Settings</a></li>
+              <li><a href="https://narademy.com/">Go To Homepage</a></li>
               <hr>
               <li><a href="<?= site_url('auth/logout') ?>">Logout</a></li>
             </ul>
@@ -22,12 +23,18 @@
             <ul>
               <li><a href="#">My Certificate</a></li>
               <li><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">Edit Profile</a></li>
+              <li><a href="https://narademy.com/">Go To Homepage</a></li>
               <hr>
               <li><a href="<?= site_url('auth/logout') ?>">Logout</a></li>
             </ul>
           </li>
           <?php else:?>
-            <li><a class="getstarted scrollto" href="<?= site_url('admin') ?>">Join Us</a></li>
+            <li class="dropdown"><a href="#" class="getstarted scrollto"><span>Get Certified</span></a>
+            <ul>
+              <li><a href="<?= site_url('auth/login') ?>">Sign in <i class="bi bi-person-circle"></i></a></li>
+              <li><a href="https://narademy.com/">Go To Homepage</a></li>
+            </ul>
+          </li>
           <?php endif;?>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>

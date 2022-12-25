@@ -22,7 +22,7 @@
 			font-size: 15px;
 			line-height: 1.7;
 			color: #c4c3ca;
-			background-color: #1f2029;
+			background-color: #181868;
 			overflow-x: hidden;
 		}
 
@@ -140,7 +140,7 @@
 		.card-back {
 			width: 100%;
 			height: 100%;
-			background-color: #2a2b38;
+			background-color: #191970;
 			background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
 			background-position: bottom center;
 			background-repeat: no-repeat;
@@ -196,7 +196,7 @@
 			letter-spacing: 0.5px;
 			outline: none;
 			color: #c4c3ca;
-			background-color: #1f2029;
+			background-color: #212191;
 			border: none;
 			-webkit-transition: all 200ms linear;
 			transition: all 200ms linear;
